@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet" th:href="@{../static/bootstrap/css/bootstrap.min.css}">
+</head>
+<body style="background-color: purple;color: yellow">
+<div style="position: absolute;top: 10px;left: 300px">
+<h2>您的订单</h2>
+
+    <table border="1" class="table">
+        <tr>
+            <th>ID</th>
+            <th>菜&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</th>
+            <!--<th>类型</th>-->
+            <th>数量</th>
+            <th>价&nbsp;格</th>
+            <th>操&nbsp;作</th>
+        </tr>
+        <tr  th:each="order:${l}">
+
+            <td th:text="${order.menu.menuId}"></td>
+            <td th:text="${order.menu.menuName}"></td>
+            <td th:text="${order.quantity}"></td>
+            <td th:text="${order.price}"></td>
+            <td><a style="color: yellow" th:href="@{/del(menuId=${order.menu.menuId})}">删除</a></td>
+        </tr>
+    </table>
+    <button type="button" class="btn btn-success" onclick="bye()">确定</button>
+    <button type="button" class="btn btn-danger" onclick="cel()">清空</button>
+    <h2>您的消费为：</h2>
+    <h1 th:text="${price}"></h1>元
+</div>
+<script>
+    function cel() {
+        location.href="cle";
+    }
+    function bye() {
+        location.href="bye";
+
+    }
+</script>
+
+</body>
+</html>

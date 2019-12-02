@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>胡仁总灌君</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<!-- load css -->
+	<link rel="stylesheet" type="text/css" href="../static/common/layui/css/layui.css" th:href="@{../static/common/layui/css/layui.css}" media="all">
+	<link rel="stylesheet" type="text/css" href="../static/css/login.css" th:href="@{../static/css/login.css}" media="all">
+	 <script type="text/javascript">
+ //点击刷新验证码
+ function changeCode(){
+         var src = " getVerifyCode?"+new Date().getTime(); //加时间戳，防止浏览器利用缓存
+
+    $('.verifyImg').attr("src",src);                  //jQuery写法
+
+}
+ </script>
+</head>
+<body>
+<div class="layui-canvs"></div>
+<div class="layui-layout layui-layout-login">
+	<h1>
+		 <strong>胡仁总灌君餐厅</strong>
+		 <em>Food System</em>
+	</h1>
+	<div class="layui-user-icon larry-login">
+		 <input type="text" placeholder="账号" class="login_txtbx" id="userName"/>
+	</div>
+	<div class="layui-pwd-icon larry-login">
+		 <input type="password" placeholder="密码" class="login_txtbx" id="userPasswd"/>
+	</div>
+    <div class="layui-val-icon larry-login">
+    	<div class="layui-code-box">
+    		<input type="text" id="code" name="code" placeholder="验证码" maxlength="4" class="login_txtbx">
+            <img src="getVerifyCode" alt="" class="verifyImg" id="verifyImg" onClick="changeCode()">
+    	</div>
+    </div>
+    <div class="layui-submit larry-login">
+    	<input type="button" value="立即登陆" id="submit_btn" class="submit_btn"/>
+    </div>
+	<div class="layui-submit larry-login">
+		<input type="button" value="立即注册" id="submit_but" class="submit_btn" onclick="register()"/>
+	</div>
+    <!--<div class="layui-login-text">
+    	<p>© 2016-2017 Larry 版权所有</p>
+        <p>鄂xxxxxx</p>
+    </div>-->
+</div>
+<script type="text/javascript" src="../static/common/layui/lay/dest/layui.all.js" th:href="@{../static/common/layui/lay/dest/layui.all.js}"></script>
+<script type="text/javascript" src="../static/js/login.js" th:href="@{../static/js/login.js}"></script>
+<script type="text/javascript" src="../static/jsplug/jparticle.jquery.js" th:href="@{../static/jsplug/jparticle.jquery.js}"></script>
+<script type="text/javascript">
+$(function(){
+	$(".layui-canvs").jParticle({
+		background: "#141414",
+		color: "#E6E6E6"
+	});
+	//ajax传递json到后台
+	$("#submit_btn").click(function () {
+		var obj = JSON.stringify({"userName":$("#userName").val(),"userPasswd":$("#userPasswd").val(),"code":$("#code").val()});
+		$.ajax({
+			url:"check",
+			type:"post",
+			data:obj,
+			contentType : "application/json;charsetset=UTF-8",
+			success:function (data) {
+				// if (data=="success"){
+				// 	location.href="main";
+				// }else if (data=="yzmError") {
+				// 	alert("验证码不正确！");
+				// 	// location.href="lerror";
+				// }else if(data="error"){
+				// 	alert("用户名或密码不正确");
+				// }
+				alert(data);
+				if (data=="success"){
+					location.href="main";
+				}
+			}
+		})
+	})
+});
+
+function register() {
+	location.href="register";
+}
+</script>
+</body>
+</html>

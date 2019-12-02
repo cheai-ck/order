@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+      a{
+          color: yellow;
+      }
+      td{
+          text-align: center;
+      }
+  </style>
+
+</head>
+<body style="background-color: purple;color: yellow">
+<a href="main">返回主页</a>
+<ol>
+
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>菜&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</th>
+                <!--<th>类型</th>-->
+                <th>价&nbsp;格</th>
+                <th>图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;片</th>
+                <th>操&nbsp;作</th>
+            </tr>
+            <tr  th:each="order: ${menu}">
+                <td th:text="${order.menuId}"></td>
+                <td th:text="${order.menuName}"></td>
+               <!-- <td th:text="${order.menuTypeId}"></td>-->
+                <td th:text="${order.menuPrice}"></td>
+                <td> <img th:src="@{${order.menuPicAddr}}" width="150px" alt="图片"></td>
+                <td><a th:href="@{/buy(menuId=${order.menuId})}">添&nbsp;加</a></td>
+            </tr>
+        </table>
+</ol>
+</body>
+</html>
